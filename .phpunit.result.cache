@@ -1,0 +1,1 @@
+{"version":1,"defects":{"FunctionsTest::testDataApi":7},"times":{"EmailTest::testCanBeCreatedFromValidEmail":0.008,"EmailTest::testCannotBeCreatedFromInvalidEmail":0.001,"FunctionsTest::testsum":0,"FunctionsTest::testStatusApi":0.216,"FunctionsTest::testDataApi":0.198}}
