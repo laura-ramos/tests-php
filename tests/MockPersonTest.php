@@ -27,4 +27,23 @@ class MockPersonTest extends TestCase
     $test = new Person($dbMock);
     $this->assertSame('Hola ana', $test->greeting(0));
   }
+
+  public function testAge() {
+    $mockPerson = new stdClass();
+    $mockPerson->name = 'laura';
+    $mockPerson->age = '26';
+
+    $mock = \Mockery::mock(Database::class);
+    $mock->shouldReceive('getPersonByID')->once()->andReturn($mockPerson);
+
+    $test = new Person($mock);
+    $this->assertSame('Mayor de edad', $test->getAge(0));
+  }
+
+  public function testMethodNotExist()
+  {
+   $mock = Mockery::mock(Person::class);
+   $mock->shouldReceive('someMethod')->once()->with('someArg')->andReturn('someValue');
+   $this->assertSame('someValue', $mock->someMethod('someArg'));
+  }
 }

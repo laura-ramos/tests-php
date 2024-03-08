@@ -13,4 +13,16 @@ class Person
     $friendName = $friend->name;
     return "Hola $friendName";
   }
+
+  public function getAge($id)
+  {
+    $person = $this->db->getPersonByID($id);
+    $edad = $person->age;
+
+    if ($edad >= 18) {
+      return "Mayor de edad";
+    } else {
+      return "Menor de edad";
+    }
+  }
 }
