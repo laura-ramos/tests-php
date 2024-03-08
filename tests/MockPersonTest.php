@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class MockPersonTest extends TestCase
 {
-  public function test_greeting()
+  public function testGreeting()
   {
     $dbMock = $this->getMockBuilder(Database::class)->getMock();
     $mockPerson = new stdClass();
@@ -14,5 +14,17 @@ class MockPersonTest extends TestCase
 
     $test = new Person($dbMock);
     $this->assertSame('Hola laura', $test->greeting(0));
+  }
+
+  public function testGreetingWithMockery()
+  {
+    $mockPerson = new stdClass();
+    $mockPerson->name = 'ana';
+
+    $dbMock = \Mockery::mock(Database::class);
+    $dbMock->shouldReceive('getPersonByID')->once()->andReturn($mockPerson);
+
+    $test = new Person($dbMock);
+    $this->assertSame('Hola ana', $test->greeting(0));
   }
 }
