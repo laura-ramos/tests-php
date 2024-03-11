@@ -20,4 +20,49 @@ class UserTest extends TestCase
 
         $this->assertEquals('', $user->getFullName());
     }
+
+    public function testPrivateMethodInheritance()
+	{
+		$user = new UserChild();
+		$this->assertIsInt($user->getToken());
+
+	}
+
+    public function testPrivateMethodGetID()
+	{
+		$user = new User();
+		$reflector = new ReflectionClass('User');
+		$method = $reflector->getMethod('getID');
+		$method->setAccessible(true);
+
+		$result = $method->invoke($user);
+
+		$this->assertEquals(50, $result);
+	}
+
+    public function testPrivateMethod()
+	{
+		$number = 1;
+
+		$user = new User();
+		$reflector = new ReflectionClass($user);
+		$method = $reflector->getMethod('getPrivateMethod');
+		$method->setAccessible(true);
+
+		$result = $method->invokeArgs($user, array($number));
+
+		$this->assertEquals(1, $result);
+	}
+
+    public function testIdIsAnInteger()
+	{
+        $user = new User();
+		$reflection = new \ReflectionClass($user);
+        $property = $reflection->getProperty('user_id');
+        $property->setAccessible(true);
+        $value = $property->getValue($user);
+
+		$this->assertIsInt($value);
+
+	}
 }
